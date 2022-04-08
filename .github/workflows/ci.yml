@@ -13,14 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:latest
+        image: postgres:14
         # Provide the password for postgres
         env:
           POSTGRES_USER: root
           POSTGRES_PASSWORD: root
           POSTGRES_DB: simple_bank
-        # Set health checks to wait until postgres has started
-        options: >-
+         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
@@ -39,5 +38,5 @@ jobs:
     - name: Run migrations
       run: make migrateup
 
-    - name: Test
-      run: make test
+    - name: Run migrations
+      run: make migrateup
