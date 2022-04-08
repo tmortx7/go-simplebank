@@ -1,1 +1,1 @@
-# go-simplebank
+simple bank
