@@ -6,17 +6,14 @@ import (
 
 	_ "github.com/lib/pq"
 	"github.com/tmortx7/go-simplebank/api"
+	"github.com/tmortx7/go-simplebank/config"
 	db "github.com/tmortx7/go-simplebank/db/sqlc"
 )
 
-const (
-	dbDriver      = "postgres"
-	dbSource      = "postgresql://root:root@localhost:5432/simple_bank?sslmode=disable"
-	serverAddress = "0.0.0.0:8080"
-)
-
 func main() {
-	conn, err := sql.Open(dbDriver, dbSource)
+	config.ReadConfig(config.ReadConfigOption{})
+	
+	conn, err := sql.Open(config.C.Database.DBDriver, config.C.Database.DBSource)
 	if err != nil {
 		log.Fatal("cannot connect to db", err)
 	}
@@ -24,7 +21,7 @@ func main() {
 	store := db.NewStore(conn)
 	server := api.NewServer(store)
 
-	err = server.Start(serverAddress)
+	err = server.Start(config.C.Server.Address)
 	if err != nil {
 		log.Fatal("cannot start server", err)
 	}
