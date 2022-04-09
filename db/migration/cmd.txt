@@ -1,0 +1,2 @@
+//enter in command line to generate new migrations
+migrate create -ext sql -dir db/migration -seq add_users
