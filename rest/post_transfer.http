@@ -7,3 +7,4 @@ Content-Type: application/json
   "amount": 10,
   "currency": "USD"
 }
+Authorization:
